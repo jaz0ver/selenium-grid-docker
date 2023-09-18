@@ -1,10 +1,11 @@
 package framework.base;
 
+import java.awt.Desktop;
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
-import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.annotations.AfterClass;
@@ -18,11 +19,13 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
+import framework.utilities.ConfigFileReader;
+import framework.utilities.reporter.ExtentManager;
+
 
 public class BaseTest {
 
     static Logger Log = LoggerFactory.getLogger(BaseTest.class);
-    public Capabilities cap;
 
     @Parameters({"selenium"})
     @BeforeSuite
@@ -46,20 +49,20 @@ public class BaseTest {
 
     @Parameters ({"browser", "selenium"})
     @BeforeMethod
-    public void beforeMethod(@Optional("chrome")String browser, @Optional("webdriver")String seleniumType) {
+    public void beforeMethod(@Optional("config_browser")String browser, @Optional("webdriver")String seleniumType) {
         String methodName = getMethodName();
         Log.info(methodName);
+        browser = getBrowser(browser);
         Log.info(methodName + "Browser: " + browser);
         Driver.initDriver(browser, seleniumType);
-        cap = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
-        Log.info("Device details: " + cap.getBrowserName().toUpperCase() + " " + cap.getBrowserVersion());
     }
 
+    @Parameters ({"browser"})
     @AfterMethod
-    public void afterMethod() {
+    public void afterMethod(@Optional("config_browser")String browser) {
         String methodName = getMethodName();
         Log.info(methodName);
-        Driver.tearDown();
+        Driver.tearDown(getBrowser(browser));
     }
 
     @AfterClass
@@ -78,6 +81,24 @@ public class BaseTest {
     public void afterSuite() {
         String methodName = getMethodName();
         Log.info(methodName);
+        reportTearDown();
+    }
+
+    public static String getMethodName() {
+        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        return "[" + methodName + "] ";
+    }
+
+    public static String getTestName() {
+        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
+        return methodName;
+    }
+
+    public String getBrowser(String browser) {
+        if (browser.equalsIgnoreCase("config_browser")) {
+            browser = ConfigFileReader.getProperty("browser");
+        }
+        return browser;
     }
 
     public static void runTerminalCommand(String command,String logText) {
@@ -108,9 +129,30 @@ public class BaseTest {
 			e.printStackTrace();
 		}
 	}
+    
+    public void reportTearDown() {
+        String methodName = getMethodName();
+        // Do tier down operations for ExtentReports reporting
+        ExtentManager.extentReports.flush();
+        boolean flagOpenReport = false;
+        String extentReport = System.getProperty("open_extent_report");
+        if (extentReport != null) {
+            if (extentReport.toLowerCase().equals("true")) {
+                flagOpenReport = true; 
+            }
+        } else if ((ConfigFileReader.getProperty("openReport")).toLowerCase().trim().equals("true")) {
+            flagOpenReport = true; 
+        }
 
-    public static String getMethodName() {
-        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
-        return "[" + methodName + "] ";
+        if (flagOpenReport) {
+            // Automatically open the report after execution
+            String extentReportFilePath = ExtentManager.extentReportFilePath;
+            try {
+                Log.info(methodName + "Opening report. Path: " + extentReportFilePath);
+                Desktop.getDesktop().browse(new File(extentReportFilePath).toURI());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 }

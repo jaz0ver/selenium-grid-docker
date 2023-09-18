@@ -1,9 +1,15 @@
 package framework.base;
 
+import java.io.IOException;
+import java.net.InetSocketAddress;
 import java.net.MalformedURLException;
+import java.net.Socket;
 import java.net.URL;
+import java.time.Duration;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -51,6 +57,10 @@ public class Driver {
                         WebDriverManager.firefoxdriver().setup();
                         DriverManager.setDriver(new FirefoxDriver());
                         break;
+                    case "chrome_debug":
+                        WebDriverManager.chromedriver().setup();
+                        DriverManager.setDriver(new ChromeDriver(chromeDebug()));
+                        break;
                     default:
                         Log.warn(methodName + "No specific browser was set. " + browser);
                     case "chrome":
@@ -61,16 +71,44 @@ public class Driver {
             } else {
                 Log.error(methodName + "Selenium type was not specified");
             }
+            Capabilities cap = DriverManager.getCapabilities();
+            Log.info("Device details: " + cap.getBrowserName().toUpperCase() + " " + cap.getBrowserVersion());
+            DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+
         } catch (MalformedURLException e) {
             Log.error(e.toString());
             e.printStackTrace();
         }
     }
 
-    public static void tearDown() {
+    private static ChromeOptions chromeDebug() {
         String methodName = CommonFunctions.getMethodName();
-        Log.info(methodName + "Tear down");
-        DriverManager.getDriver().quit();
-        DriverManager.unloadDriver();
+        boolean existingSession = false;
+        try {
+            final Socket socket = new Socket();
+            socket.connect(new InetSocketAddress("localhost",9222));
+            socket.close();
+            existingSession = true;
+        } catch (IOException e) {
+            // e.printStackTrace();
+        }
+        ChromeOptions options = new ChromeOptions();
+        if (existingSession) {
+            options.setExperimentalOption("debuggerAddress", "localhost:9222");
+            Log.info(methodName + "CHROME DEBUG MODE - Use existing session");
+        } else {
+            options.addArguments("--remote-debugging-port=9222");
+            Log.info(methodName + "CHROME DEBUG MODE - Creating new session");
+        }
+        return options;
+    }
+
+    public static void tearDown(String browser) {        
+        if (!browser.equalsIgnoreCase("chrome_debug")) {
+            String methodName = CommonFunctions.getMethodName();
+            Log.info(methodName + "Tear down");
+            DriverManager.getDriver().quit();
+            DriverManager.unloadDriver();
+        }
     }
 }
