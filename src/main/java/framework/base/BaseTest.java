@@ -2,15 +2,8 @@ package framework.base;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
 
 import org.openqa.selenium.Capabilities;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,16 +18,11 @@ import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
-import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class BaseTest {
 
     static Logger Log = LoggerFactory.getLogger(BaseTest.class);
     public Capabilities cap;
-    URL url;
-    
-    // public ThreadLocal<WebDriver> driver = new InheritableThreadLocal<WebDriver>();
-    public WebDriver driver;
 
     @Parameters({"selenium"})
     @BeforeSuite
@@ -48,14 +36,12 @@ public class BaseTest {
     public void beforeTest() {
         String methodName = getMethodName();
         Log.info(methodName);
-        
     }
-    
+
     @BeforeClass
     public void beforeClass() {
         String methodName = getMethodName();
         Log.info(methodName);
-        
     }
 
     @Parameters ({"browser", "selenium"})
@@ -64,31 +50,28 @@ public class BaseTest {
         String methodName = getMethodName();
         Log.info(methodName);
         Log.info(methodName + "Browser: " + browser);
-        initDriver(browser, seleniumType);
-        cap = ((RemoteWebDriver) driver).getCapabilities();
+        Driver.initDriver(browser, seleniumType);
+        cap = ((RemoteWebDriver) DriverManager.getDriver()).getCapabilities();
         Log.info("Device details: " + cap.getBrowserName().toUpperCase() + " " + cap.getBrowserVersion());
     }
-    
+
     @AfterMethod
     public void afterMethod() {
         String methodName = getMethodName();
         Log.info(methodName);
-        Log.info(methodName + "Tear down");
-        driver.quit();
-        
+        Driver.tearDown();
     }
+
     @AfterClass
     public void afterClass() {
         String methodName = getMethodName();
         Log.info(methodName);
-        
     }
     
     @AfterTest
     public void afterTest() {
         String methodName = getMethodName();
         Log.info(methodName);
-        
     }
     
     @AfterSuite
@@ -97,56 +80,6 @@ public class BaseTest {
         Log.info(methodName);
     }
 
-    public void initDriver(String browser, String seleniumType) {
-        String methodName = getMethodName();
-        DesiredCapabilities dc = new DesiredCapabilities();
-        try {
-            seleniumType = seleniumType.trim();
-            if (seleniumType.equalsIgnoreCase("grid")) {
-                url = new URL("http://127.0.0.1:4444/wd/hub");
-                switch (browser) {
-                    case "edge":
-                        // EdgeOptions options = new EdgeOptions();
-                        // options.addArguments("--ignore-certificate-errors");
-                        dc.acceptInsecureCerts();
-                        dc.setBrowserName("MicrosoftEdge");
-                        break;
-                    case "firefox":
-                        dc.setBrowserName("firefox");
-                        break;
-                    default:
-                        Log.warn(methodName + "No specific browser was set. " + browser);
-                    case "chrome":
-                        dc.setBrowserName("chrome");
-                        break;
-                }
-                driver = new RemoteWebDriver(url, dc);
-            } else if(seleniumType.equalsIgnoreCase("webDriver")) {
-                switch (browser) {
-                    case "edge":
-                        WebDriverManager.edgedriver().setup();
-                        driver = new EdgeDriver();
-                        break;
-                    case "firefox":
-                        WebDriverManager.firefoxdriver().setup();
-                        driver = new FirefoxDriver();
-                        break;
-                    default:
-                        Log.warn(methodName + "No specific browser was set. " + browser);
-                    case "chrome":
-                        WebDriverManager.chromedriver().setup();
-                        driver = new ChromeDriver();
-                        break;
-                }
-            } else {
-                Log.error(methodName + "Selenium type was not specified");
-            }
-        } catch (MalformedURLException e) {
-            Log.error(e.toString());
-            e.printStackTrace();
-        }
-    }
-    
     public static void runTerminalCommand(String command,String logText) {
         String methodName = getMethodName();
         Log.info(methodName);
