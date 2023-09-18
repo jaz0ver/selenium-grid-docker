@@ -61,7 +61,6 @@
         <artifactId>selenium-server</artifactId>
         <version>4.0.0-alpha-2</version>
     </dependency>
-
     <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
     <dependency>
       <groupId>org.seleniumhq.selenium</groupId>
@@ -69,6 +68,7 @@
       <version>4.12.1</version>
     </dependency>
 
+    <!-- TestNG plugin -->
     <!-- https://mvnrepository.com/artifact/org.testng/testng -->
     <dependency>
       <groupId>org.testng</groupId>
@@ -107,12 +107,26 @@
         <version>0.7.7.0</version>
     </dependency>
     
-    <!-- Extend Reports plugin -->
+    <!-- Extent Reports plugin -->
     <!-- https://mvnrepository.com/artifact/com.aventstack/extentreports -->
     <dependency>
       <groupId>com.aventstack</groupId>
       <artifactId>extentreports</artifactId>
       <version>5.1.0</version>
+    </dependency>
+    
+    <!-- Excel plugin -->
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi</artifactId>
+      <version>5.2.3</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml -->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.3</version>
     </dependency>
   </dependencies>
   
