@@ -1,5 +1,7 @@
 package trainings;
 
+import javax.swing.JOptionPane;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,11 +13,21 @@ public class TestJava extends BaseTest{
 
     public static void main(String[] args) {
         
-        String text1 = System.getProperty("user.dir");
-        System.out.println(text1.substring(text1.lastIndexOf("\\") + 1));
-        
+        System.out.println(browserSelector());
         
     }
 
+	private static String browserSelector() {
+        Object[] options = {"chrome_debug", "chrome", "firefox", "edge", "safari" };
+        String browser = (String) JOptionPane.showInputDialog(
+						    null,
+						    "Browser:",
+						    "Select browser",
+						    JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+        return browser == null ? "chrome" : browser;
+	}
 
 }

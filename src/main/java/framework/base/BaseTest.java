@@ -6,8 +6,11 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+import javax.swing.JOptionPane;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.ITestContext;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -28,10 +31,20 @@ public class BaseTest {
 
     @Parameters({ "selenium" })
     @BeforeSuite
-    public void beforeSuite(@Optional("webdriver") String seleniumType) {
+    public void beforeSuite(ITestContext iTestContext, @Optional("webdriver") String seleniumType) {
         String methodName = getMethodName();
         Log.info(methodName);
         Log.info("Running Selenium " + seleniumType.toUpperCase());
+        if (iTestContext.getCurrentXmlTest().getSuite().getName().equalsIgnoreCase("suite")) {
+            String suiteName = iTestContext.getCurrentXmlTest().getSuite().getFileName();
+            suiteName = suiteName.substring(suiteName.lastIndexOf("\\") + 1);
+            System.setProperty("suiteName", suiteName);
+            Log.info("Suite: " + suiteName);
+        } else {
+            String className = (iTestContext.getAllTestMethods()[0].getInstance().getClass()).toString();
+            className = className.substring(className.lastIndexOf(".") + 1);
+            defaultSuiteBrowserSelector();
+        }
     }
 
     @BeforeTest
@@ -93,13 +106,6 @@ public class BaseTest {
         return methodName;
     }
 
-    public String getBrowser(String browser) {
-        if (browser.equalsIgnoreCase("config_browser")) {
-            browser = ConfigFileReader.getProperty("browser");
-        }
-        return browser;
-    }
-
     public static void runTerminalCommand(String command, String logText) {
         String methodName = getMethodName();
         Log.info(methodName);
@@ -152,5 +158,25 @@ public class BaseTest {
                 e.printStackTrace();
             }
         }
+    }
+
+	private static void defaultSuiteBrowserSelector() {
+        Object[] options = {"chrome_debug", "chrome", "firefox", "edge", "safari" };
+        String browser = (String) JOptionPane.showInputDialog(
+						    null,
+						    "Browser:",
+						    "Select browser",
+						    JOptionPane.PLAIN_MESSAGE,
+                            null,
+                            options,
+                            options[0]);
+        System.setProperty("browser", browser == null ? "chrome" : browser);
+    }
+
+    public String getBrowser(String browser) {
+        if (browser.equalsIgnoreCase("config_browser")) {
+            browser = System.getProperty("browser");
+        }
+        return browser;
     }
 }

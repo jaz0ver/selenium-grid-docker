@@ -19,7 +19,6 @@ public class TestListener extends BaseTest implements ITestListener{
     @Override
     public void onStart(ITestContext iTestContext) {
         Log.info("[onStart] "+iTestContext.getName());
-        // iTestContext.setAttribute("WebDriver", driver);
     }
 
     @Override
