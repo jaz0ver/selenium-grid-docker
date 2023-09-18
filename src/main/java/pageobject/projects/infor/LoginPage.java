@@ -31,7 +31,7 @@ public class LoginPage {
         userTxtbox.enter(user);
         passwordTxtbox.enter(pw);
         submitBtn.click();
-        ExtentTestManager.passStep("I enter username and password");
+        ExtentTestManager.passStep("I enter user, \"" + user + "\" and password, \"" + pw + "\"");
     }
 
 }

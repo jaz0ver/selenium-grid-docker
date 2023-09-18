@@ -37,7 +37,7 @@ public class TestNGZEN3 extends BaseTest {
 		WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
 		LoginPage.header.brandImg.verifyIsVisible();
 		LoginPage.login(user, pw);
-		LoginPage.userTxtbox.verifyIsNotVisible();
+		LoginPage.userTxtbox.verifyIsVisible();
 	}
 
 	@Test(dataProvider = "getDataByTcName", dataProviderClass = MyDataProvider.class)
