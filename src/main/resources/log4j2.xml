@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="WARN">
+
+  <Properties>
+    <Property name="filename">src/main/resources/logs/</Property>
+    <Property name="date">%d{YYYYMM}</Property>
+  </Properties>
+
+  <Appenders>
+    <Console name="Console" target="SYSTEM_OUT">
+      <PatternLayout pattern="%d{YYYY-MM-DD HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+    </Console>
+    <RollingFile name="File" fileName="${filename}/Selenium.log" filePattern="${filename}/Selenium-%d{YYYY-MM-dd HH}.log">
+      <PatternLayout>
+        <pattern>%d{YYYY-MM-DD HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n</pattern>
+      </PatternLayout>
+      <Policies>
+        <TimeBasedTriggeringPolicy interval="1"/>
+        <!-- <SizeBasedTriggeringPolicy size="5 KB" /> -->
+        <!-- <OnStartupTriggeringPolicy /> -->
+      </Policies>
+      <DefaultRolloverStrategy max="5">
+        <Delete basePath="${filename}" maxDepth="2">
+          <IfFileName glob="*/Selenium-*.log" />
+          <IfLastModified age="P30D" />
+        </Delete>
+      </DefaultRolloverStrategy>
+    </RollingFile>
+  </Appenders>
+
+  <Loggers>
+    <!-- <Logger name="trainings" level="error">
+      <AppenderRef ref="Console"/>
+    </Logger> -->
+    <Root level="info">
+      <AppenderRef ref="Console"/>
+      <AppenderRef ref="File"/>
+    </Root>
+  </Loggers>
+
+</Configuration>

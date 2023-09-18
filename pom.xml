@@ -1,0 +1,101 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>selenium.grid.docker</groupId>
+  <artifactId>selenium-grid-docker</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+
+  <name>selenium-grid-docker</name>
+  <!-- FIXME change it to the project's website -->
+  <url>http://www.example.com</url>
+
+  <properties>
+    <maven.compiler.release>11</maven.compiler.release>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <skipTests>true</skipTests>
+  </properties>
+
+  <build>
+    <defaultGoal>install</defaultGoal>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.0.0-M1</version>
+        <configuration>
+          <systemPropertyVariables>
+            <!-- <screenRecoder>${screenRecoder}</screenRecoder> -->
+            <!-- <open_extent_report>${open_extent_report}</open_extent_report> -->
+          </systemPropertyVariables>
+          <!-- <properties>
+            <property>
+              <name>listener</name>
+              <value>framework.utilities.TestListener</value>
+            </property>
+          </properties> -->
+          <skipTests>${skipTests}</skipTests>
+          <suiteXmlFiles>
+            <!-- <suiteXmlFile>src/test/java/trainings/suites/SuitesRunner.xml</suiteXmlFile> -->
+            <!-- <suiteXmlFile>src/test/java/trainings/suites/SmokeSuite.xml</suiteXmlFile> -->
+            <!-- <suiteXmlFile>src/test/java/trainings/suites/RegressionSuite.xml</suiteXmlFile> -->
+            <!-- e.g. mvn test -DskipTests=false -Dopen_extent_report=true -->
+
+            <suiteXmlFile>src/test/java/trainings/suites/${suiteXML}.xml</suiteXmlFile>
+            <!-- e.g. mvn test -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -DscreenRecoder=true -->
+
+            <!-- Setting browser parameter in command line will overwrite all browser parameter in TestNG.xml -->
+            <!-- e.g. mvn test -Dbrowser=firefox -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -DscreenRecoder=true -->
+          </suiteXmlFiles>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <dependencies>
+    <!-- Selenium TestNg plugin -->
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-server -->
+    <dependency>
+        <groupId>org.seleniumhq.selenium</groupId>
+        <artifactId>selenium-server</artifactId>
+        <version>4.0.0-alpha-2</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.seleniumhq.selenium/selenium-java -->
+    <dependency>
+      <groupId>org.seleniumhq.selenium</groupId>
+      <artifactId>selenium-java</artifactId>
+      <version>4.12.1</version>
+    </dependency>
+
+    <!-- https://mvnrepository.com/artifact/org.testng/testng -->
+    <dependency>
+      <groupId>org.testng</groupId>
+      <artifactId>testng</artifactId>
+      <version>7.8.0</version>
+    </dependency>
+
+    <!-- WebDriver manager plugin -->
+    <!-- https://mvnrepository.com/artifact/io.github.bonigarcia/webdrivermanager -->
+    <dependency>
+      <groupId>io.github.bonigarcia</groupId>
+      <artifactId>webdrivermanager</artifactId>
+      <version>5.4.1</version>
+    </dependency>
+
+    <!-- Logger plugin -->
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+    <dependency>
+        <groupId>org.slf4j</groupId>
+        <artifactId>slf4j-api</artifactId>
+        <version>2.0.9</version>
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-slf4j2-impl -->
+    <dependency>
+        <groupId>org.apache.logging.log4j</groupId>
+        <artifactId>log4j-slf4j2-impl</artifactId>
+        <version>2.20.0</version>
+        <scope>test</scope>
+    </dependency>
+  </dependencies>
+  
+</project>
