@@ -24,13 +24,12 @@
         <version>3.0.0-M1</version>
         <configuration>
           <systemPropertyVariables>
-            <!-- <screenRecoder>${screenRecoder}</screenRecoder> -->
             <open_extent_report>${open_extent_report}</open_extent_report>
           </systemPropertyVariables>
           <properties>
             <property>
               <name>listener</name>
-              <value>framework.utilities.listners.TestListener</value>
+              <value>framework.utilities.listeners.TestListener</value>
             </property>
           </properties>
           <skipTests>${skipTests}</skipTests>
@@ -41,10 +40,13 @@
             <!-- e.g. mvn test -DskipTests=false -Dopen_extent_report=true -->
 
             <suiteXmlFile>src/test/java/trainings/suites/${suiteXML}.xml</suiteXmlFile>
-            <!-- e.g. mvn test -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -DscreenRecoder=true -->
+            <!-- e.g. mvn test -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -->
 
             <!-- Setting browser parameter in command line will overwrite all browser parameter in TestNG.xml -->
-            <!-- e.g. mvn test -Dbrowser=firefox -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -DscreenRecoder=true -->
+            <!-- e.g. mvn test -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -Dbrowser=firefox -->
+
+            <!-- If you want to run using Selenium GRID, add parameter -Dselenium=grid -->
+            <!-- e.g. mvn test -DsuiteXML=RegressionSuite -DskipTests=false -Dopen_extent_report=true -Dselenium=grid -->
           </suiteXmlFiles>
         </configuration>
       </plugin>

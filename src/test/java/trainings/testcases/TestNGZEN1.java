@@ -44,7 +44,7 @@ public class TestNGZEN1 extends BaseTest{
     public void testSeleniumGrid4() {
 		ExtentTestManager.startTest(getTestName(), "Sample test");
         Log.info(getMethodName() + "Some code here");
-        // WebControl.goToURL("https://www.tutorialspoint.com/about/about_careers.htm");
+        WebControl.goToURL("https://www.tutorialspoint.com/about/about_careers.htm");
         Log.info(DriverManager.getDriver().getTitle());
     }
 
