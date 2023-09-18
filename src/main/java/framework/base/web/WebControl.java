@@ -1,4 +1,4 @@
-package framework;
+package framework.base.web;
 
 import framework.base.BaseTest;
 import framework.base.DriverManager;
