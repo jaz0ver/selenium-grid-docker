@@ -2,8 +2,41 @@ package framework.utilities.functions;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Random;
 
 public class CommonFunctions {
+
+    public static String randomString(int length) {
+        String a = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM";
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            result += a.charAt(randInt(0, 51));
+        }
+        return result;
+    }
+
+    public static String randomStringInt(int length) {
+        String a = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM0123456789";
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            result += a.charAt(randInt(0, 61));
+        }
+        return result;
+    }
+
+    public static Integer randomInteger(int length) {
+        String result = "";
+        for (int i = 0; i < length; i++) {
+            result += randInt(0, 9);
+        }
+        return Integer.parseInt(result);
+    }
+
+    public static int randInt(int min, int max) {
+        Random rand = new Random();
+        int randomNum = rand.nextInt((max - min) + 1) + min;
+        return randomNum;
+    }
 
     public static String getMethodName() {
         String methodName = Thread.currentThread().getStackTrace()[2].getMethodName();
