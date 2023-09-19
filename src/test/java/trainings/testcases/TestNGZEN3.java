@@ -50,4 +50,15 @@ public class TestNGZEN3 extends BaseTest {
 		LoginPage.login(user, pw);
 		LoginPage.userTxtbox.verifyIsNotVisible();
 	}
+	
+	@Test(dataProvider = "getDataByTcName", dataProviderClass = MyDataProvider.class)
+	public void TC3_Infor_Login(String user, String pw) {
+		Log.info("------------- Test Case 2 -------------");
+		ExtentTestManager.startTest(getTestName(), "Infor valid test");
+		ExtentTestManager.assignAuthor(author);
+		WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
+		LoginPage.login(user, pw);
+		LoginPage.userTxtbox.verifyIsVisible();
+		
+	}
 }

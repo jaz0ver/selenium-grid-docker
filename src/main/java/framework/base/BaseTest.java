@@ -11,14 +11,10 @@ import javax.swing.JOptionPane;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.testng.ITestContext;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
-import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
-import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Optional;
 import org.testng.annotations.Parameters;
 
@@ -47,13 +43,13 @@ public class BaseTest {
         }
     }
 
-    @BeforeTest
+    // @BeforeTest
     public void beforeTest() {
         String methodName = getMethodName();
         Log.info(methodName);
     }
 
-    @BeforeClass
+    // @BeforeClass
     public void beforeClass() {
         String methodName = getMethodName();
         Log.info(methodName);
@@ -77,13 +73,13 @@ public class BaseTest {
         Driver.tearDown(getBrowser(browser));
     }
 
-    @AfterClass
+    // @AfterClass
     public void afterClass() {
         String methodName = getMethodName();
         Log.info(methodName);
     }
 
-    @AfterTest
+    // @AfterTest
     public void afterTest() {
         String methodName = getMethodName();
         Log.info(methodName);
@@ -161,6 +157,8 @@ public class BaseTest {
     }
 
 	private static void defaultSuiteBrowserSelector() {
+        String methodName = getMethodName();
+        Log.info(methodName + "Default suite - Browser selector");
         Object[] options = {"chrome_debug", "chrome", "firefox", "edge", "safari" };
         String browser = (String) JOptionPane.showInputDialog(
 						    null,
