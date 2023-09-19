@@ -4,11 +4,15 @@ import org.openqa.selenium.By;
 
 // import framework.base.BaseTest;
 import framework.base.web.Element;
+import framework.base.web.Page;
 import framework.utilities.reporter.ExtentTestManager;
 
 public class LoginPage {
 
-    // Selector - Login page
+    // Page title and url/partial url 
+	public static Page page = new Page("Infor TaaS Demo Page : Login", "play.taas.infor.com/");
+
+    // Selector - Login page > Body
     public static Element userTxtbox = new Element("Username field", By.id("username"));
     public static Element passwordTxtbox = new Element("Password field", By.id("password"));
     public static Element submitBtn = new Element("Submit button", By.id("submit"));
@@ -16,7 +20,6 @@ public class LoginPage {
 
     // Selector - Login page > Header
     public static final Header header = new Header("Header section", By.cssSelector(".page-header"));
-
     public static class Header extends Element {
         public Header(String description, By by) {
             super(description, by);
