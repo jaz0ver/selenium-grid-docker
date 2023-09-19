@@ -21,8 +21,8 @@ public class LoginPage {
         public Header(String description, By by) {
             super(description, by);
         }
-        public Element brandImg = new Element("Infor logo", By.cssSelector(".page-header img"));
-        public Element brandLabel = new Element("Infor site title", By.cssSelector(".page-header small"));
+        public Element brandImg = new Element("Infor logo", By.cssSelector("img"), this);
+        public Element brandLabel = new Element("Infor site title", By.cssSelector("small"), this);
         public Element quote = new Element("Infor site description", By.cssSelector("blockquote small cite"));
     }
 
