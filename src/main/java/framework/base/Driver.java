@@ -17,6 +17,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import framework.utilities.ConfigFileReader;
 import framework.utilities.functions.CommonFunctions;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -73,7 +74,7 @@ public class Driver {
             }
             Capabilities cap = DriverManager.getCapabilities();
             Log.info("Device details: " + cap.getBrowserName().toUpperCase() + " " + cap.getBrowserVersion());
-            DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+            DriverManager.getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(Integer.parseInt(ConfigFileReader.getProperty("explicit_timeout"))));
 
         } catch (MalformedURLException e) {
             Log.error(e.toString());
