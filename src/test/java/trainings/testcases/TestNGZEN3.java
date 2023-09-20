@@ -36,7 +36,7 @@ public class TestNGZEN3 extends BaseTest {
 		ExtentTestManager.startTest(getTestName(), "Infor valid test");
 		ExtentTestManager.assignAuthor(author);
 		WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
-		ExtentTestManager.failStep("Sample Failed Test");
+		// ExtentTestManager.failStep("Sample Failed Test");
 		LoginPage.login(user, pw);
 		LoginPage.userTxtbox.verifyIsNotVisible();
 	}

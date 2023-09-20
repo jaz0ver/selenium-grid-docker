@@ -44,8 +44,8 @@
         </methods>
       </class>
     </classes>
-  </test>
-  <test name="TestNG3"> -->
+  </test> -->
+  <test name="TestNG3">
     <parameter name="browser"  value="chrome"/>
     <classes>
       <class name="trainings.testcases.TestNGZEN3">
