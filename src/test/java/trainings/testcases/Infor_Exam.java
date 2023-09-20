@@ -2,6 +2,8 @@ package trainings.testcases;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Listeners;
+import org.testng.annotations.Optional;
+import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
 import framework.base.BaseTest;
@@ -31,9 +33,24 @@ public class Infor_Exam extends BaseTest{
     String author = "Zenric";
     ExcelReader testdata = new ExcelReader("testdata", "testcases");
 
+    @Test
+    public void TestScenario() {
+        infor_TC1_Login(1);
+        infor_TC2_Registration();
+        infor_TC3_LoginViaConfigFile();
+    }
+
+    @Parameters({"count"})
+    @Test(enabled=true)
+    public void MultipleTCRunner(@Optional("1")String count) {
+        for (int i = 0; i < Integer.parseInt(count); i++) {
+            infor_TC1_Login(i);
+        }
+    }
+
     @Test(invocationCount = 1)
-    public void infor_TC1_Login() {
-		ExtentTestManager.startTest(getTestName(), "Successful login to Infor Site");
+    public void infor_TC1_Login(@Optional("1")int count) {
+		ExtentTestManager.startTest(getTestName() + "_" + count, "Successful login to Infor Site");
 		ExtentTestManager.assignAuthor(author);
 
         WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
@@ -105,7 +122,7 @@ public class Infor_Exam extends BaseTest{
         HomePage.page.verifyPageTitle(20);
         HomePage.page.verifyURL();
 
-        DriverManager.getDriver().findElement(By.xpath("//ul/li[" + ConfigFileReader.getProperty("explicit_timeout") + "]/a")).click();
+        DriverManager.getDriver().findElement(By.xpath("//ul/li[" + ConfigFileReader.getProperty("POM_Test") + "]/a")).click();
 
         RegistrationPage.stepOne.page.verifyPageTitle(20);
         RegistrationPage.stepOne.page.verifyURL();
