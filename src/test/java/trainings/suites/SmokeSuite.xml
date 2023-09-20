@@ -3,6 +3,11 @@
 <suite name="Suite">
   <test thread-count="1" name="Test">
     <classes>
+      <groups>
+        <run>
+          <include name="smoke"/>
+        </run>
+      </groups>
       <class name="trainings.testcases.TestNG"/>
     </classes>
   </test> <!-- Test -->

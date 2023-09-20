@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name="Suite" parallel="tests" thread-count="2">
+  <!-- <listeners> -->
+      <!-- <listener class-name="framework.utilities.listeners.TestListener"/> -->
+  <!-- </listeners> -->
+  <parameter name="browser"  value="firefox"/>
+  <!-- <test name="TestNG">
+    <parameter name="browser"  value="firefox"/>
+    <parameter name="count"  value="2"/>
+    <classes>
+      <groups>
+        <run>
+          <include name="smoke"/>
+        </run>
+      </groups>
+      <class name="trainings.testcases.TestNGZEN1">
+        <methods>
+          <include name="testSeleniumGrid1"/>
+          <include name="testSeleniumGrid2"/>
+          <include name="testSeleniumGrid3"/>
+          <include name="testSeleniumGrid4"/>
+        </methods>
+      </class>
+      <class name="trainings.testcases.TestNGZEN2">
+        <methods>
+          <include name="testSeleniumGrid1_2"/>
+          <include name="testSeleniumGrid2_2"/>
+          <include name="testSeleniumGrid3_2"/>
+          <include name="testSeleniumGrid4_2"/>
+        </methods>
+      </class>
+    </classes>
+  </test> -->
+  <!-- <test name="TestNG2">
+    <parameter name="browser"  value="chrome"/>
+    <classes>
+      <class name="trainings.testcases.TestNGZEN2">
+        <methods>
+          <include name="testSeleniumGrid1_2"/>
+          <include name="testSeleniumGrid2_2"/>
+          <include name="testSeleniumGrid3_2"/>
+          <include name="testSeleniumGrid4_2"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="TestNG3"> -->
+    <parameter name="browser"  value="chrome"/>
+    <classes>
+      <class name="trainings.testcases.TestNGZEN3">
+        <methods>
+          <include name="TC1_Infor_Login"/>
+          <include name="TC2_Infor_Login"/>
+          <include name="TC3_Infor_Login"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Infor_Exam">
+    <parameter name="browser"  value="firefox"/>
+    <classes>
+      <class name="trainings.testcases.Infor_Exam">
+        <methods>
+          <!-- <include name="TestScenario"/> -->
+          <!-- <include name="MultipleTCRunner"> -->
+            <!-- <parameter name="count"  value="3"/> -->
+          <!-- </include> -->
+          <include name="infor_TC1_Login"/>
+          <include name="infor_TC2_Registration"/>
+          <include name="infor_TC3_LoginViaConfigFile"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+</suite>
