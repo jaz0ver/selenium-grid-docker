@@ -1,10 +1,11 @@
 # To execute this docker-compose yml file use `docker-compose -f docker-compose-v2.yml up`
 # Add the `-d` flag at the end for detached execution
 # To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-v2.yml down`
+# docker compose -f "docker-compose-v2.yml" up --scale firefox=2 --scale chrome=2 -d
 version: '2'
 services:
   chrome:
-    image: selenium/node-chrome:4.12.1-20230912
+    image: selenium/node-chrome:latest
     shm_size: 2gb
     depends_on:
       - selenium-hub
@@ -12,13 +13,11 @@ services:
       - SE_EVENT_BUS_HOST=selenium-hub
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_NODE_OVERRIDE_MAX_SESSIONS=true
-      - SE_NODE_MAX_SESSIONS=3
     ports:
-      - "6900:5900"
+      - "6900-6909:5900"
 
   firefox:
-    image: selenium/node-firefox:4.12.1-20230912
+    image: selenium/node-firefox:latest
     shm_size: 2gb
     depends_on:
       - selenium-hub
@@ -27,10 +26,11 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     ports:
-      - "6901:5900"
+      - "6910-6919:5900"
 
   selenium-hub:
-    image: selenium/hub:4.12.1-20230912
+    image: selenium/hub:latest
+    container_name: selenium-hub
     ports:
       - "4442:4442"
       - "4443:4443"

@@ -35,6 +35,7 @@ Check Selenium Grid
     a. docker-compose up --scale chrome=2
     b. docker-compose up --scale firefox=2
     c. docker-compose up --scale chrome=2 --scale firefox=2
+    e. docker compose -f "docker-compose-v2.yml" up --scale firefox=2 --scale chrome=2 -d (Sometimes chrome is only openning one node. Just enter again the line of codes)
 
 
 10. Set up parallel execution by adding parallel="classes" in TestNG.xml

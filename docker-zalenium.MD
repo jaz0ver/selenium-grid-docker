@@ -21,6 +21,9 @@
     Dashboard:
     http://localhost:4444/dashboard/
 
+    Node Live view:
+    http://localhost:4444/grid/admin/live?ref=hackernoon.com
+
 
     NOTE: REMOVE ALL OTHER IMAGES BEFORE RUNNING ZALENIUM 
 
