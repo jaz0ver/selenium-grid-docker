@@ -19,6 +19,7 @@ import pageobject.projects.infor.RegistrationPage;
 * @Description: 
 *
 * @Scrum_Team: Alpha
+* @Release: Build 2309
 * @author Zenric Navea
 * @Date_Created: 09/20/2023
 */
