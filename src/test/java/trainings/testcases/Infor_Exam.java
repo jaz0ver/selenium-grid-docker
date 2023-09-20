@@ -8,6 +8,7 @@ import framework.base.BaseTest;
 import framework.base.DriverManager;
 import framework.base.web.WebControl;
 import framework.utilities.ConfigFileReader;
+import framework.utilities.ExcelReader;
 import framework.utilities.reporter.ExtentTestManager;
 import pageobject.projects.infor.HomePage;
 import pageobject.projects.infor.LoginPage;
@@ -18,46 +19,32 @@ import pageobject.projects.infor.RegistrationPage;
 public class Infor_Exam extends BaseTest{
 
     String author = "Zenric Navea";
-    String user = "infor_taas";
-    String pass = "infor_taas";
-    String firstName = "Zenric";
-    String lastName = "Navea";
-    String email = "jazx.zn@gmail.com";
-    String phone = "09661401029";
-    String gender = "Female";
-    String companyName = "RCG Technology Inc.";
-    String address1 = "Address Line 1";
-    String address2 = "Address Line 2";
-    String iFrame = "companyInfo";
-    String skill1 = "Automation";
-    String skill2 = "Selenium WebDriver";
+    ExcelReader testdata = new ExcelReader("testdata", "testcases");
 
-
-
-    @Test
-    public void infor_TC1() {
+    @Test(invocationCount = 2)
+    public void infor_TC1_Login() {
 		ExtentTestManager.startTest(getTestName(), "Successful login to Infor Site");
 		ExtentTestManager.assignAuthor(author);
 
         WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
         LoginPage.page.verifyPageTitle(20);
         LoginPage.page.verifyURL();
-        LoginPage.userTxtbox.verifyEnter(user);
-        LoginPage.passwordTxtbox.verifyEnter(pass);
+        LoginPage.userTxtbox.verifyEnter(testdata.getData(getTestName(), "username"));
+        LoginPage.passwordTxtbox.verifyEnter(testdata.getData(getTestName(), "password"));
         LoginPage.submitBtn.verifyClick();
         
         HomePage.page.verifyPageTitle(20);
     }
 
     @Test
-    public void infor_TC2() {
+    public void infor_TC2_Registration() {
 		ExtentTestManager.startTest(getTestName(), "Successful registration to Infor Site");
 		ExtentTestManager.assignAuthor(author);
 
         WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
         LoginPage.page.verifyPageTitle(20);
         LoginPage.page.verifyURL();
-        LoginPage.login(user, pass);
+        LoginPage.login(testdata.getData(getTestName(), "username"), testdata.getData(getTestName(), "password"));
 
         HomePage.page.verifyPageTitle(20);
         HomePage.page.verifyURL();
@@ -65,31 +52,30 @@ public class Infor_Exam extends BaseTest{
 
         RegistrationPage.stepOne.page.verifyPageTitle(20);
         RegistrationPage.stepOne.page.verifyURL();
-        RegistrationPage.stepOne.firstNameTxtbox.verifyEnter(firstName);
-        RegistrationPage.stepOne.lastNameTxtbox.verifyEnter(lastName);
+        RegistrationPage.stepOne.firstNameTxtbox.verifyEnter(testdata.getData(getTestName(), "firstname"));
+        RegistrationPage.stepOne.lastNameTxtbox.verifyEnter(testdata.getData(getTestName(), "lastname"));
         RegistrationPage.nextBtn.verifyClick();
 
         RegistrationPage.stepTwo.page.verifyPageTitle(20);
         RegistrationPage.stepTwo.page.verifyURL();
-        RegistrationPage.stepTwo.emailTxtbox.verifyEnter(email);
-        RegistrationPage.stepTwo.phoneTxtbox.verifyEnter(phone);
-        RegistrationPage.stepTwo.genderDropdown.verifySelectByVisibleText(gender);
+        RegistrationPage.stepTwo.emailTxtbox.verifyEnter(testdata.getData(getTestName(), "email"));
+        RegistrationPage.stepTwo.phoneTxtbox.verifyEnter(testdata.getData(getTestName(), "phone"));
+        RegistrationPage.stepTwo.genderDropdown.verifySelectByVisibleText(testdata.getData(getTestName(), "gender"));
 
         WebControl.switchToiFrame("companyInfo");
-        RegistrationPage.stepTwo.companyNameTxtbox.verifyEnter(companyName);
-        RegistrationPage.stepTwo.address1Txtbox.verifyEnter(address1);
-        RegistrationPage.stepTwo.address2Txtbox.verifyEnter(address2);
+        RegistrationPage.stepTwo.companyNameTxtbox.verifyEnter(testdata.getData(getTestName(), "companyname"));
+        RegistrationPage.stepTwo.address1Txtbox.verifyEnter(testdata.getData(getTestName(), "address1"));
+        RegistrationPage.stepTwo.address2Txtbox.verifyEnter(testdata.getData(getTestName(), "address2"));
         WebControl.switchToParentFrame();
         RegistrationPage.nextBtn.verifyClickViaExecutor();
 
         RegistrationPage.stepThree.page.verifyPageTitle(20);
         RegistrationPage.stepThree.page.verifyURL();
-        
-        RegistrationPage.stepThree.skillOneTxtbox.verifyEnter(skill1);
+        RegistrationPage.stepThree.skillOneTxtbox.verifyEnter(testdata.getData(getTestName(), "skill1"));
         RegistrationPage.stepThree.addSkillTxtbox.verifyEnter("1");
         RegistrationPage.stepThree.addSkillBtn.verifyClick();
         RegistrationPage.stepThree.skillTwoTxtbox.verifyIsVisible();
-        RegistrationPage.stepThree.skillTwoTxtbox.verifyEnter(skill2);
+        RegistrationPage.stepThree.skillTwoTxtbox.verifyEnter(testdata.getData(getTestName(), "skill2"));
         RegistrationPage.nextBtn.verifyClick();
 
         RegistrationPage.stepFour.page.verifyPageTitle(20);
@@ -97,14 +83,14 @@ public class Infor_Exam extends BaseTest{
     }
     
     @Test
-    public void infor_TC3() {
+    public void infor_TC3_LoginViaConfigFile() {
 		ExtentTestManager.startTest(getTestName(), "Succesful login to Infor Site");
 		ExtentTestManager.assignAuthor(author);
 
         WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
         LoginPage.page.verifyPageTitle(20);
         LoginPage.page.verifyURL();
-        LoginPage.login(user, pass);
+        LoginPage.login(testdata.getData(getTestName(), "username"), testdata.getData(getTestName(), "password"));
 
         HomePage.page.verifyPageTitle(20);
         HomePage.page.verifyURL();

@@ -27,7 +27,7 @@ public class MyDataProvider {
 			case "TC2_Infor_Login":
 				testdata.setExcelXlsx("testdata", "testcases");
 				data = new String[][] {
-					{ testdata.getData("TC3_Login", "UserName"), testdata.getData("TC3_Login", "Password") }
+					{ testdata.getData("TC3_Login", "username"), testdata.getData("TC3_Login", "password") }
 				};
 				break;
 			default:
@@ -43,7 +43,7 @@ public class MyDataProvider {
 	public String[][] testData3() {
 		testdata.setExcelXlsx("testdata", "testcases");
 		return new String[][] {
-			{ testdata.getData("TC3_Login", "UserName"), testdata.getData("TC3_Login", "Password") }
+			{ testdata.getData("TC3_Login", "username"), testdata.getData("TC3_Login", "password") }
 		};
 	}
 }
