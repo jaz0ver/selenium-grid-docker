@@ -10,6 +10,8 @@ import javax.swing.JOptionPane;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.slf4j.Marker;
+import org.slf4j.MarkerFactory;
 import org.testng.ITestContext;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterSuite;
@@ -24,6 +26,7 @@ import framework.utilities.reporter.ExtentManager;
 public class BaseTest {
 
     static Logger Log = LoggerFactory.getLogger(BaseTest.class);
+    protected Marker verify = MarkerFactory.getMarker("VERFIY");
 
     @Parameters({ "selenium" })
     @BeforeSuite
