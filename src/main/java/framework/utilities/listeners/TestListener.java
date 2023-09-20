@@ -9,6 +9,8 @@ import org.slf4j.LoggerFactory;
 import com.aventstack.extentreports.Status;
 
 import framework.base.BaseTest;
+import framework.utilities.ConfigFileReader;
+import framework.utilities.MyScreenRecorder;
 import framework.utilities.reporter.ExtentTestManager;
 
 public class TestListener extends BaseTest implements ITestListener{
@@ -24,8 +26,19 @@ public class TestListener extends BaseTest implements ITestListener{
     @Override
     public void onTestStart(ITestResult iTestResult) {
         Log.info("[onTestStart] " + getTestMethodName(iTestResult) + " test is starting.");
-        getTestClassName(iTestResult);
-
+        if (System.getProperty("currentClassName")!=getTestClassName(iTestResult)) {
+            String screenRecoder = System.getProperty("screenRecoder");
+            if (screenRecoder != null) {
+                if (screenRecoder.toLowerCase().equals("true")) {
+                    screenRecoderFlag = true;
+                }
+            } else if ((ConfigFileReader.getProperty("screenRecoder")).toLowerCase().trim().equals("true")) {
+                screenRecoderFlag = true; 
+            }
+        }
+        if (screenRecoderFlag) {
+            MyScreenRecorder.startRecording(getTestClassName(iTestResult));
+        } 
     }
 
     // @Override
@@ -37,7 +50,7 @@ public class TestListener extends BaseTest implements ITestListener{
     @Override
     public void onTestFailure(ITestResult iTestResult) {
         Log.info("[onTestFailure] " + getTestMethodName(iTestResult) + "Test fails unexpectedly.");
-        String methodDescription = ExtentTestManager.methodDescription;
+        String methodDescription = ExtentTestManager.getMethodDesc();
         if(methodDescription == null || methodDescription == "") {
             ExtentTestManager.failStep("Test fails unexpectedly.");
         } else {
@@ -54,6 +67,9 @@ public class TestListener extends BaseTest implements ITestListener{
     @Override
     public void onFinish(ITestContext iTestContext) {
         Log.info("[onFinish]");
+        if (screenRecoderFlag) {
+            MyScreenRecorder.stopRecording();        
+        }
     }
 
     @Override
