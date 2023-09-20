@@ -24,7 +24,6 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class Driver {
     
     static Logger Log = LoggerFactory.getLogger(Driver.class);
-    private static String gridURL = "http://127.0.0.1:4444/wd/hub";
 
     public static void initDriver(String browser, String seleniumType) {
         String methodName = CommonFunctions.getMethodName();
@@ -32,7 +31,7 @@ public class Driver {
         try {
             seleniumType = seleniumType.trim();
             if (seleniumType.equalsIgnoreCase("grid")) {
-                URL url = new URL(gridURL);
+                URL url = new URL(ConfigFileReader.getProperty("grid_hub"));
                 switch (browser) {
                     case "edge":
                         dc.acceptInsecureCerts();
