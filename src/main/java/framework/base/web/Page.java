@@ -23,7 +23,7 @@ public class Page {
 
     public void verifyPageTitle() {
         String methodDescription = "Verify page title is equals to \"" + pageTitle + "\".";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         DriverManager.getWait().until(d -> pageTitle.equals(DriverManager.getDriver().getTitle()));
         Log.info("Actual page title: " + DriverManager.getDriver().getTitle());
@@ -32,7 +32,7 @@ public class Page {
     
     public void verifyPageTitle(int timeout) {
         String methodDescription = "Verify page title is equals to \"" + pageTitle + "\".";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         if (timeout > 0) {
             Log.info("Timeout: {} seconds", timeout );
@@ -44,7 +44,7 @@ public class Page {
     
     public void verifyURL() {
         String methodDescription = "Verify is in correct url, \"" + url + "\".";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         DriverManager.getWait().until(d -> (DriverManager.getDriver().getCurrentUrl().contains(url)));
         Log.info("Actual URL: " + DriverManager.getDriver().getCurrentUrl());

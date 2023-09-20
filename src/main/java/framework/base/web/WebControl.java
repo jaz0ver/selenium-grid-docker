@@ -14,7 +14,6 @@ public class WebControl extends BaseTest{
     public static void goToURL(String url) {
         String methodDescription = "Go to url \"" + url + "\"";
         DriverManager.getDriver().get(url);
-        ExtentTestManager.methodDescription = methodDescription;
         ExtentTestManager.passStep(methodDescription);
     }
     
@@ -46,7 +45,7 @@ public class WebControl extends BaseTest{
 
     public static void verifyPageTitle(String expectedPageTitle) {
         String methodDescription = "Verify page title is equals to \"" + expectedPageTitle + "\"";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         DriverManager.getWait().until(d -> expectedPageTitle.equals(DriverManager.getDriver().getTitle()));
         Log.info("Actual page title: " + DriverManager.getDriver().getTitle());
@@ -55,7 +54,7 @@ public class WebControl extends BaseTest{
     
     public static void verifyPageTitle(String expectedPageTitle, int timeout) {
         String methodDescription = "Verify page title is equals to \"" + expectedPageTitle + "\"";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         if (timeout > 0) {
             Log.info("Timeout: {} seconds", timeout );

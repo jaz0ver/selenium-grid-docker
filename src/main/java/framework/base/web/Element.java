@@ -153,7 +153,7 @@ public class Element extends BaseTest {
 
     public void verifyClick() {
         String methodDescription = "Verify \"" + description + "\" is clicked.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         waitElementIsVisible().click();
@@ -162,7 +162,7 @@ public class Element extends BaseTest {
 
     public void verifyClickViaExecutor() {
         String methodDescription = "Verify \"" + description + "\" is clicked via javascript executor.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         JSExecutor.click(waitElementIsVisible());
@@ -171,7 +171,7 @@ public class Element extends BaseTest {
 
     public void verifyEnter(String value) {
         String methodDescription = "Verify \"" + value + "\" is entered in \"" + description + "\".";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         WebElement element = waitElementIsVisible();
@@ -183,7 +183,7 @@ public class Element extends BaseTest {
     
     public void verifyIsVisible() {
         String methodDescription = "Verify \"" + description + "\" is visible.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         waitElementIsVisible();
@@ -192,7 +192,7 @@ public class Element extends BaseTest {
 
     public void verifyIsVisible(int timeout) {
         String methodDescription = "Verify \"" + description + "\" is visible.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         if (timeout > 0) {
@@ -206,7 +206,7 @@ public class Element extends BaseTest {
         String methodDescription = "Verify \"" + description + "\" is not visible.";
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         waitElementIsNotVisible();
         ExtentTestManager.passStep();
     }
@@ -215,7 +215,7 @@ public class Element extends BaseTest {
         String methodDescription = "Verify \"" + description + "\" is not visible.";
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         if (timeout > 0) {
             Log.info("Timeout: {} seconds", timeout );
         }
@@ -225,7 +225,7 @@ public class Element extends BaseTest {
 
     public void verifyIsExisting() {
         String methodDescription = "Verify \"" + description + "\" is existing.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         waitElementIsExisting();
@@ -234,7 +234,7 @@ public class Element extends BaseTest {
     
     public void verifyIsExisting(int timeout) {
         String methodDescription = "Verify \"" + description + "\" is existing.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         if (timeout > 0) {
@@ -246,7 +246,7 @@ public class Element extends BaseTest {
     
     public void verifyIsNotExisting() {
         String methodDescription = "Verify \"" + description + "\" is not existing.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         waitElementIsNotExisting();
@@ -255,7 +255,7 @@ public class Element extends BaseTest {
     
     public void verifyIsNotExisting(int timeout) {
         String methodDescription = "Verify \"" + description + "\" is not existing.";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         if (timeout > 0) {
@@ -267,7 +267,7 @@ public class Element extends BaseTest {
 
     public void verifySelectByVisibleText(String value) {
         String methodDescription = "Verify \"" + value + "\" is selected in \"" + description + "\".";
-        ExtentTestManager.methodDescription = methodDescription;
+        ExtentTestManager.setMethodDesc(methodDescription);
         Log.info(methodDescription);
         Log.info("Selector: \"{}\"", by);
         Select dropdown = new Select(waitElementIsVisible());

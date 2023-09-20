@@ -26,7 +26,7 @@ public class ExtentTestManager {
     static Map<Integer, ExtentTest> extentTestMap = new HashMap<>();
     static ExtentReports extent = ExtentManager.createExtentReports();
     static Logger Log = LoggerFactory.getLogger(ExtentTestManager.class);
-    public static String methodDescription = "";
+    private static ThreadLocal<String> methodDescription = new ThreadLocal<>();
 
     public static synchronized ExtentTest startTest(String testName, String desc) {
         Log.info("Test case name: " + testName);
@@ -36,6 +36,18 @@ public class ExtentTestManager {
         test.assignCategory(System.getProperty("currentClassName") + ".class");
         extentTestMap.put((int) Thread.currentThread().getId(), test);
         return test;
+    }
+
+    public static void setMethodDesc(String methodDesc) {
+        methodDescription.set(methodDesc);
+    }
+
+    public static String getMethodDesc() {
+        return methodDescription.get();
+    }
+
+    public static void unloadMethodDesc() {
+        methodDescription.remove();
     }
 
     public static synchronized ExtentTest getTest() {
@@ -56,10 +68,9 @@ public class ExtentTestManager {
     }
 
     public static void passStep() {
-        checkMethodDesc();
-        Log.info(methodDescription);
-        getTest().log(Status.PASS, methodDescription);
-        methodDescription = "";
+        Log.info(getMethodDesc());
+        getTest().log(Status.PASS, getMethodDesc());
+        unloadMethodDesc();
     }
 
     public static void failStep(String methodDescription) {
@@ -70,9 +81,9 @@ public class ExtentTestManager {
 
     public static void failStep() {
         checkMethodDesc();
-        Log.error(methodDescription);
-        getTest().log(Status.FAIL, methodDescription, getScreenshotAsBase64());
-        methodDescription = "";
+        Log.error(getMethodDesc());
+        getTest().log(Status.FAIL, getMethodDesc(), getScreenshotAsBase64());
+        unloadMethodDesc();
     }
 
     public static void skipStep(String methodDescription) {
@@ -82,9 +93,9 @@ public class ExtentTestManager {
 
     public static void skipStep() {
         checkMethodDesc();
-        Log.error(methodDescription);
-        getTest().log(Status.SKIP, methodDescription);
-        methodDescription = "";
+        Log.error(getMethodDesc());
+        getTest().log(Status.SKIP, getMethodDesc());
+        unloadMethodDesc();
     }
 
     public static Media getScreenshotAsBase64() {
@@ -93,7 +104,7 @@ public class ExtentTestManager {
     }
 
     public static void checkMethodDesc() {
-        if (methodDescription == "") {
+        if (getMethodDesc() == "") {
             getTest().log(Status.SKIP, "Please specify the method description. ExtentTestManager.methodDescription = methodDescription");
         }
     }
