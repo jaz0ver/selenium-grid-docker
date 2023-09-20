@@ -14,14 +14,23 @@ import pageobject.projects.infor.HomePage;
 import pageobject.projects.infor.LoginPage;
 import pageobject.projects.infor.RegistrationPage;
 
+/***
+* @Scenario: Infor Exam
+* @Description: 
+*
+* @Scrum_Team: Alpha
+* @author Zenric Navea
+* @Date_Created: 09/20/2023
+*/
+
 @Listeners(framework.utilities.listeners.TestListener.class)
 
 public class Infor_Exam extends BaseTest{
 
-    String author = "Zenric Navea";
+    String author = "Zenric";
     ExcelReader testdata = new ExcelReader("testdata", "testcases");
 
-    @Test(invocationCount = 2)
+    @Test(invocationCount = 1)
     public void infor_TC1_Login() {
 		ExtentTestManager.startTest(getTestName(), "Successful login to Infor Site");
 		ExtentTestManager.assignAuthor(author);
