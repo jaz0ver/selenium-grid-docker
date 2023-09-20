@@ -15,7 +15,7 @@ import framework.utilities.reporter.ExtentTestManager;
 public class TestNGZEN2 extends BaseTest{
 
     static Logger Log = LoggerFactory.getLogger(TestNGZEN1.class);
-	String author = "Zenric Navea";
+	String author = "Zenric";
     
     @Test
     public void testSeleniumGrid1_2() {

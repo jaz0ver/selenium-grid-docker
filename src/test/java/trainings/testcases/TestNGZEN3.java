@@ -17,17 +17,7 @@ import pageobject.projects.infor.LoginPage;
 public class TestNGZEN3 extends BaseTest {
 
 	Logger Log = LoggerFactory.getLogger(TestNGZEN3.class);
-	String author = "Zenric Navea";
-	// final static String user = "infor_taas";
-	// final static String pw = "infor_taas";
-	// final static String firstName = "Zenric";
-	// final static String lastName = "Navea";
-	// final static String emailAdd = "test@gmail.com";
-	// final static String cpNo = "01136471227";
-	// final static String compName = "Infor";
-	// final static String compAdd1 = "Address2";
-	// final static String compAdd2 = "Address2";
-	// final static String skill = "Test";
+	String author = "Jaz";
 
 	@Test(groups = { "smoke", "regression" }, invocationCount = 1, priority = 1, dataProvider = "Excel_Data", dataProviderClass = MyDataProvider.class, description = "Testing login page of Infor test site")
 	public void TC1_Infor_Login(String user, String pw) {
@@ -59,6 +49,5 @@ public class TestNGZEN3 extends BaseTest {
 		WebControl.goToURL(ConfigFileReader.getProperty("test_url"));
 		LoginPage.login(user, pw);
 		LoginPage.userTxtbox.verifyIsVisible();
-		
 	}
 }
