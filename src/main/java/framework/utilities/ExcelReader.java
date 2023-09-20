@@ -20,6 +20,13 @@ public class ExcelReader{
     private Sheet excelSheet;
     private String excelName, sheetName;
 
+    public ExcelReader(String excelName, String sheetName) {
+        setExcelXlsx(excelName, sheetName);
+    }
+
+    public ExcelReader() {
+    }
+
     public void setExcelXlsx(String excelName, String sheetName) {
 
         /********************
