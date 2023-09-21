@@ -25,7 +25,7 @@ public class Driver {
     
     static Logger Log = LoggerFactory.getLogger(Driver.class);
 
-    public static void initDriver(String browser, String seleniumType) {
+    public static synchronized void initDriver(String browser, String seleniumType) {
         String methodName = CommonFunctions.getMethodName();
         DesiredCapabilities dc = new DesiredCapabilities();
         try {
