@@ -135,26 +135,28 @@ public class BaseTest {
     }
 
     public void reportTearDown() {
-        String methodName = getMethodName();
-        // Do tier down operations for ExtentReports reporting
-        ExtentManager.extentReports.flush();
-        boolean flagOpenReport = false;
-        String extentReport = System.getProperty("open_extent_report");
-        if (extentReport != null) { // check if open_extent_report parameter in command line
-            if (extentReport.toLowerCase().equals("true")) {
+        if (System.getProperty("currentClassName") != null) {
+            String methodName = getMethodName();
+            // Do tier down operations for ExtentReports reporting
+            ExtentManager.extentReports.flush();
+            boolean flagOpenReport = false;
+            String extentReport = System.getProperty("open_extent_report");
+            if (extentReport != null) { // check if open_extent_report parameter in command line
+                if (extentReport.toLowerCase().equals("true")) {
+                    flagOpenReport = true;
+                }
+            } else if ((ConfigFileReader.getProperty("openReport")).toLowerCase().trim().equals("true")) {
                 flagOpenReport = true;
             }
-        } else if ((ConfigFileReader.getProperty("openReport")).toLowerCase().trim().equals("true")) {
-            flagOpenReport = true;
-        }
-        if (flagOpenReport) {
-            // Automatically open the report after execution
-            String extentReportFilePath = ExtentManager.extentReportFilePath;
-            try {
-                Log.info(methodName + "Opening report. Path: " + extentReportFilePath);
-                Desktop.getDesktop().browse(new File(extentReportFilePath).toURI());
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (flagOpenReport) {
+                // Automatically open the report after execution
+                String extentReportFilePath = ExtentManager.extentReportFilePath;
+                try {
+                    Log.info(methodName + "Opening report. Path: " + extentReportFilePath);
+                    Desktop.getDesktop().browse(new File(extentReportFilePath).toURI());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
