@@ -45,20 +45,20 @@
       </class>
     </classes>
   </test> -->
-  <test name="TestNG3">
-    <parameter name="browser"  value="chrome"/>
-    <classes>
-      <class name="trainings.testcases.TestNGZEN3">
-        <methods>
-          <include name="TC1_Infor_Login"/>
-          <include name="TC2_Infor_Login"/>
-          <include name="TC3_Infor_Login"/>
-        </methods>
-      </class>
-    </classes>
-  </test>
+  <!-- <test name="TestNG3"> -->
+    <!-- <parameter name="browser"  value="chrome"/> -->
+    <!-- <classes> -->
+      <!-- <class name="trainings.testcases.TestNGZEN3"> -->
+        <!-- <methods> -->
+          <!-- <include name="TC1_Infor_Login"/> -->
+          <!-- <include name="TC2_Infor_Login"/> -->
+          <!-- <include name="TC3_Infor_Login"/> -->
+        <!-- </methods> -->
+      <!-- </class> -->
+    <!-- </classes> -->
+  <!-- </test> -->
   <test name="Infor_Exam">
-    <parameter name="browser"  value="firefox"/>
+    <parameter name="browser"  value="chrome"/>
     <classes>
       <class name="trainings.testcases.Infor_Exam">
         <methods>
@@ -69,6 +69,22 @@
           <include name="infor_TC1_Login"/>
           <include name="infor_TC2_Registration"/>
           <include name="infor_TC3_LoginViaConfigFile"/>
+        </methods>
+      </class>
+    </classes>
+  </test>
+  <test name="Infor_Exam2">
+    <parameter name="browser"  value="firefox"/>
+    <classes>
+      <class name="trainings.testcases.Infor_Exam2">
+        <methods>
+          <!-- <include name="TestScenario2"/> -->
+          <!-- <include name="MultipleTCRunner2"> -->
+            <!-- <parameter name="count"  value="3"/> -->
+          <!-- </include> -->
+          <include name="infor_TC1_Login2"/>
+          <include name="infor_TC2_Registration2"/>
+          <include name="infor_TC3_LoginViaConfigFile2"/>
         </methods>
       </class>
     </classes>
