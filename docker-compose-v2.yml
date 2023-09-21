@@ -1,6 +1,7 @@
 # To execute this docker-compose yml file use `docker-compose -f docker-compose-v2.yml up`
 # Add the `-d` flag at the end for detached execution
 # To stop the execution, hit Ctrl+C, and then `docker-compose -f docker-compose-v2.yml down`
+# Adjust port range for scaling up. The line below will open 2 node of chrome container and 2 node of firefox container 
 # docker compose -f "docker-compose-v2.yml" up --scale firefox=2 --scale chrome=2 -d
 version: '2'
 services:
@@ -14,7 +15,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     ports:
-      - "6900-6909:5900"
+      - "6900-6901:5900"
 
   firefox:
     image: selenium/node-firefox:latest
@@ -26,7 +27,7 @@ services:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
     ports:
-      - "6910-6919:5900"
+      - "6910-6911:5900"
 
   selenium-hub:
     image: selenium/hub:latest
