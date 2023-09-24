@@ -28,11 +28,10 @@
     <classes>
       <class name="trainings.testcases.TestNGZEN2">
         <methods>
-          <include name="testSeleniumGrid1_2">
-          <include name="testSeleniumGrid2_2">
-          <include name="testSeleniumGrid3_2">
-          <include name="testSeleniumGrid4_2">
-          </include>
+          <include name="testSeleniumGrid1_2"/>
+          <include name="testSeleniumGrid2_2"/>
+          <include name="testSeleniumGrid3_2"/>
+          <include name="testSeleniumGrid4_2"/>
         </methods>
       </class>
     </classes>
